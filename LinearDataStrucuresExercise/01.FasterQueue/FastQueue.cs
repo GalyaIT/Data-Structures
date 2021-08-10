@@ -7,36 +7,77 @@
     public class FastQueue<T> : IAbstractQueue<T>
     {
         private Node<T> _head;
+        private Node<T> _tail;
         public int Count { get; private set; }
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            var current = this._head;
+            while (current != null)
+            {
+                if (current.Item.Equals(item))
+                {
+                    return true;
+                }
+                current = current.Next;
+            }
+            return false;
         }
 
         public T Dequeue()
         {
-            throw new NotImplementedException();
+            this.EnsureNotEmpty();
+            var oldHead = this._head;
+            this._head = this._head.Next;
+            this.Count--;
+            return oldHead.Item;
         }
 
         public void Enqueue(T item)
         {
-            throw new NotImplementedException();
+            Node<T> newNode = new Node<T>(item);
+            if (Count == 0)
+            {
+                this._head = newNode;
+                this._tail = newNode;
+
+                // this._head = this._tail = newNode;
+
+                this.Count++;
+                return;
+            }          
+                this._tail.Next = newNode;
+                this._tail = this._tail.Next;
+                this.Count++;
+            
         }
 
         public T Peek()
         {
-            throw new NotImplementedException();
+            this.EnsureNotEmpty();
+            return this._head.Item;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            var current = this._head;
+            while (current != null)
+            {
+                yield return current.Item;
+                current = current.Next;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
+            => this.GetEnumerator();
+
+        private bool EnsureNotEmpty()
         {
-            throw new NotImplementedException();
+            if (Count > 0)
+            {
+                return true;
+            }
+            throw new InvalidOperationException();
         }
     }
 }

@@ -48,7 +48,7 @@
             {
                 Item = item,
                 Next = null
-            };
+            };           
 
             if (this._head is null)
             {

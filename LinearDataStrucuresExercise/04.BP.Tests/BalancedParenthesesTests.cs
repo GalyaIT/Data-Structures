@@ -11,7 +11,7 @@ namespace _04.BP.Tests
         [SetUp]
         public void SetUp() => this._instance = GetInstance();
 
-        [Theory]
+        [Theory]       
         [TestCase("{[()]}", true)]
         [TestCase("{[(]]}", false)]
         [TestCase("{{{[()]}}}", true)]
